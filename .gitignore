@@ -1,0 +1,14 @@
+# 编译产物与 IDE 配置
+.idea/
+out/
+*.class
+*.iml
+
+# 临时目录
+.codex_tmp/
+
+# 暂时不上传（以后需要时删除或注释掉对应行即可）
+java.md
+其他资料/
+资料/阶段一：Java核心与AI基础开发/PPT/
+资料/阶段二：Java核心与AI开发进阶/PPT/
