@@ -25,6 +25,19 @@ public class demo_04 {
         // 案例3：通过 super 调用父类被重写的原方法
         System.out.println("=== 案例3：super 调用父类的原方法 ===");
         zi.callFuMethod();
+
+        System.out.println();
+
+        // 案例4：继承中构造方法的特点——先执行父类构造，再执行子类构造
+        System.out.println("=== 案例4：构造方法的特点（默认调用父类无参构造）===");
+        Student s1 = new Student();
+
+        System.out.println();
+
+        // 案例5：通过 super(参数) 手动调用父类的带参构造
+        System.out.println("=== 案例5：super(参数) 调用父类带参构造 ===");
+        Student s2 = new Student("张三", 20);
+        System.out.println("学生信息：" + s2.name + "，" + s2.age);
     }
 }
 
@@ -71,5 +84,47 @@ class Zi extends Fu {
     // 通过 super 调用父类被重写的原方法
     public void callFuMethod() {
         super.methodFu(); // 访问父类的 methodFu（没有走重写版本）
+    }
+}
+
+/*
+ * 继承中构造方法的特点：
+ * 1. 子类不能继承父类的构造方法（构造方法名必须与类名一致，父类的构造方法名是父类名）
+ * 2. 子类构造方法的第一行默认隐藏了 super();——先调用父类的无参构造，再执行子类自己的构造
+ * 3. 如果父类"没有"无参构造，子类必须手动写 super(参数) 调用父类的带参构造，否则编译报错
+ * 4. super(参数) 和 this(参数) 都必须放在构造方法的第一行，所以二者不能同时出现
+ */
+
+// 父类：人（用于演示继承中构造方法的特点）
+class Person {
+    String name; // 姓名
+    int age;     // 年龄
+
+    // 父类无参构造方法
+    public Person() {
+        System.out.println("① 父类 Person 的无参构造方法执行了");
+    }
+
+    // 父类带参构造方法
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.println("① 父类 Person 的带参构造方法执行了");
+    }
+}
+
+// 子类：学生，继承 Person
+class Student extends Person {
+
+    // 子类无参构造：第一行默认隐藏 super();——调用父类无参构造
+    public Student() {
+        // 这里隐藏了一行代码：super();
+        System.out.println("② 子类 Student 的无参构造方法执行了");
+    }
+
+    // 子类带参构造：手动用 super(参数) 调用父类的带参构造
+    public Student(String name, int age) {
+        super(name, age); // 父类没有无参构造时，这行必须手动写，否则编译报错
+        System.out.println("② 子类 Student 的带参构造方法执行了");
     }
 }
